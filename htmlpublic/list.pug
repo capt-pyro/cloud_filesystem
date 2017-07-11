@@ -1,0 +1,23 @@
+html
+  head
+    title Joe's Cloud Storage
+  body
+    div
+      h3 Upload Files
+      form#upf(method='post', enctype='multipart/form-data', onsubmit='return actionValue();')
+        input(type='file', name='file', multiple='')
+        br
+        input#idTag(type='text', name='tag')
+        br
+        input(type='submit', value='Upload')
+    script.
+      function actionValue() {
+      document.getElementById('upf').action = "http://localhost:3000/upload/" + document.getElementById('idTag').value;
+      }
+    div 
+      h3= "Your Files"
+      form(method= 'get')
+        ol
+          each val in filelist
+            li
+              a(href= 'http://localhost:3000/file/' + val.filename, download='true') #{val.metadata.originalname}  
